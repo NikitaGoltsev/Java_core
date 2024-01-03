@@ -14,8 +14,4 @@ public class build_by_permition {
         }
         return  ans;
     }
-
-    public int busyStudent(int[] startTime, int[] endTime, int queryTime) {
-
-    }
 }
