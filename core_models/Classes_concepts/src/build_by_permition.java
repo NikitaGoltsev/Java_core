@@ -14,4 +14,12 @@ public class build_by_permition {
         }
         return  ans;
     }
+
+    public static void main(String[] args){
+        // Example with chars
+        char ch = 'a';
+        System.out.println(ch);
+        int copy = ch;
+        System.out.println(copy);
+    }
 }

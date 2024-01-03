@@ -5,6 +5,12 @@ import java.util.Objects;
 public class Main {
     public static void main(String[] args) {
         // System.out.println(mergeAlternately("sp", "bu"));
+        // System.out.println(findTheDifference("tur", "tuyr"));
+        // System.out.println(strStr("trytotiy", "to")); // ans - 3
+        // System.out.println(strStr("sad", "sad")); // ans - 0
+        //System.out.println(strStr("mississippi", "sippia")); // ans - 0
+
+
     }
 
     public static String mergeAlternately(String word1, String word2) {
@@ -50,13 +56,63 @@ public class Main {
         return res;
     }
 
-    public char findTheDifference(String s, String t) {
-        char diff;
+    public static char findTheDifference(String s, String t) {
+        char diff = 'a';
+
         int[] mas1 = new int[26];
         int[] mas2 = new int[26];
-
-        for(){
-
+        for(int i = 0; i < 26; i++){
+            mas1[i] = 0;
+            mas2[i] = 0;
         }
+        for(int i = 0; i < s.length(); i++){
+            mas1[s.charAt(i) - 'a'] += 1;
+            mas2[t.charAt(i) - 'a'] += 1;
+        }
+        mas2[t.charAt(t.length() - 1) - 'a'] += 1;
+        for(int i = 0; i < 26; i++){
+            if(mas1[i] != mas2[i]){
+                diff += i;
+                break;
+            }
+        }
+
+        return diff;
+    }
+
+    public static int strStr(String haystack, String needle) {
+        int res = -1;
+        int i = 0, j = 0;
+        int n = haystack.length();
+        int m = needle.length();
+        if(n >= m) {
+            for(int index = 0; index < n; index++){
+                if(haystack.charAt(index) == needle.charAt(0)){
+                    i = index + 1;
+                    j = 1;
+                    // check in cycle
+                    while (true){
+                        if(j == m){
+                            res = index;
+                            break;
+                        }else{
+                            if(haystack.charAt(i) == needle.charAt(j)){
+                                j += 1;
+                                i += 1;
+                            }else{
+                                break;
+                            }
+                        }
+                    }
+                    if(res != -1)break;
+                }else {
+                    if(n - index - 1 < m){ // check for out of index
+                        break;
+                    }
+                }
+            }
+        }
+
+        return res;
     }
 }
