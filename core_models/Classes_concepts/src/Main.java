@@ -8,8 +8,9 @@ public class Main {
         // System.out.println(findTheDifference("tur", "tuyr"));
         // System.out.println(strStr("trytotiy", "to")); // ans - 3
         // System.out.println(strStr("sad", "sad")); // ans - 0
-        //System.out.println(strStr("mississippi", "sippia")); // ans - 0
-
+        // System.out.println(isAnagram("mississippi", "sippia")); // ans - 0
+        // System.out.println(repeatedSubstringPattern("abac"));
+        System.out.println(repeatedSubstringPattern("ababab"));
 
     }
 
@@ -112,6 +113,165 @@ public class Main {
                 }
             }
         }
+
+        return res;
+    }
+
+    public static boolean isAnagram(String s, String t) {
+        boolean ans = true;
+        int[] mas1 = new int[26];
+        int[] mas2 = new int[26];
+        for(int i = 0; i < 26; i++){
+            mas1[i] = 0;
+            mas2[i] = 0;
+        }
+        int n = s.length();
+        int m = t.length();
+        if(n == m){
+            for (int i = 0; i < n; i++){
+                mas1[s.charAt(i) - 'a'] += 1;
+                mas2[t.charAt(i) - 'a'] += 1;
+            }
+            for (int i = 0; i < 26; i++){
+                if(mas1[i] != mas2[i]){
+                    ans = false;
+                    break;
+                }
+            }
+        }else{
+            ans = false;
+        }
+        return ans;
+    }
+    public static boolean repeatedSubstringPattern_for_sub(String s) {
+
+        // str1.equals(str2) -> true/false
+        /*
+        String s = "14.015_AUDI";
+        String firstPart = s.substring(0, s.indexOf("_"));
+         */
+        boolean res = false;
+        int sub_str_ln = s.length();
+        int num_of_sub_str = 1;
+        while(sub_str_ln % 2 == 0){
+            sub_str_ln /= 2;
+            num_of_sub_str *= 2;
+            String[] parts = new String[num_of_sub_str];
+            for (int i = 0; i < num_of_sub_str; i++){
+                // parts[i] = s.substring((i * sub_str_ln) ,((i+1) * sub_str_ln - 1));
+                parts[i] = s.substring((i * sub_str_ln) ,((i+1) * sub_str_ln));
+                // System.out.println(parts[i]);
+                if(i != 0){
+                    if(parts[i].equals(parts[i-1])){
+                        if(i == num_of_sub_str - 1) {
+                            res = true;
+                            sub_str_ln = 1; // some kind of break
+                        }
+                    }else{
+                        break;
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
+
+    public static boolean repeatedSubstringPattern(String s) {
+        boolean res = false;
+        for(int sub_str_ln = s.length()/2; sub_str_ln >= 1; sub_str_ln--) {
+            if(s.length() % sub_str_ln != 0){
+                continue;
+            }
+            int num_of_sub_str = s.length() / sub_str_ln;
+            String[] parts = new String[num_of_sub_str];
+            for (int i = 0; i < num_of_sub_str; i++) {
+                // parts[i] = s.substring((i * sub_str_ln) ,((i+1) * sub_str_ln - 1));
+                parts[i] = s.substring((i * sub_str_ln), ((i + 1) * sub_str_ln));
+                // System.out.println(parts[i]);
+                if (i != 0) {
+                    if (parts[i].equals(parts[i - 1])) {
+                        if (i == num_of_sub_str - 1) {
+                            res = true;
+                            sub_str_ln = 1; // some kind of break
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+    public void moveZeroes(int[] nums) {
+        for(int i = nums.length - 1; i >= 0; i--){
+            if(nums[i] == 0) {
+                for (int j = i+1; j < nums.length; j++) {
+                    if (nums[j] != 0) {
+                        nums[j - 1] = nums[j];
+                        nums[j] = 0;
+                    }else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public int[] plusOne(int[] digits) {
+
+        // System.arraycopy(ans, 0, ansr, 0, ln); -> SLICE OF ARRAY
+
+        int[] ans = new int[digits.length + 1];
+        System.arraycopy(digits, 0, ans, 1, digits.length);
+        int ln = digits.length;
+        for (int i = digits.length - 1; i >= 0; i--){
+            ans[i+1] = digits[i] + 1;
+            if(ans[i + 1] == 10){
+                ans[i + 1] = 0;
+                if(i == 0){
+                    ans[0] = 1;
+                    ln += 1;
+                }
+            }else{
+                break;
+            }
+        }
+
+        int[] ansr = new int[ln];
+        if(ans[0] != 1){
+            System.arraycopy(ans, 1, ansr, 0, ln);
+        }else{
+            System.arraycopy(ans, 0, ansr, 0, ln);
+        }
+        return ansr;
+    }
+
+    public int arraySign(int[] nums) {
+        int pos = 0;
+
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] <= -1){
+                pos += 1;
+            }else if(nums[i] == 0){
+                pos = -1;
+                break;
+            }
+        }
+        if(pos == -1){
+            pos = 0;
+        }else if(pos % 2 == 0){
+            pos = 1;
+        }else{
+            pos = -1;
+        }
+        return pos;
+    }
+
+    public boolean canMakeArithmeticProgression(int[] arr) {
+        boolean res = true;
 
         return res;
     }
